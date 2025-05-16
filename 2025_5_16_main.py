@@ -25,10 +25,10 @@ config = {
     "use_scaling": True,           # Scale conductance values
     "scaling_factor": 1e4,        # Factor for scaling G_mean and G_std
     "noise_scaling_factor": 1,   # Factor to scale G_std for noise injection
-    "use_int_levels": False,       # Use integer levels instead of CSV
+    "use_int_levels": True,       # Use integer levels instead of CSV
     "int_min" : -100,
     "int_max" : 100,
-    "epochs": 5,                   # Number of training epochs
+    "epochs": 20,                   # Number of training epochs
     "batch_size": 64
 }
 
@@ -382,45 +382,7 @@ def evaluate_model(model, model_name, x_test_data, y_test_data, is_tflite=False,
         loss, accuracy = model.evaluate(x_test_data, y_test_data, verbose=0)
         print(f"Test Loss: {loss:.4f} | Test Accuracy: {accuracy:.4f}")
         return loss, accuracy
-'''def evaluate_model(model, model_name, x_test_data, y_test_data, is_tflite=False, tflite_interpreter=None):
-    print(f"\n--- Evaluating: {model_name} ---")
-    if is_tflite:
-        if tflite_interpreter is None:
-            print("Error: TFLite interpreter not provided.")
-            return 0.0, 0.0
-        
-        input_details = tflite_interpreter.get_input_details()
-        output_details = tflite_interpreter.get_output_details()
-        
-        # Assuming model input is float32. Check input_details[0]['dtype'] if different.
-        # Reshape test data to include batch dimension if interpreter expects it
-        # and ensure it matches the input tensor shape (e.g., [1, 28, 28] or [1, 784])
-        expected_shape = tuple(input_details[0]['shape'])
 
-        num_correct = 0
-        num_total = len(x_test_data)
-
-        for i in range(num_total):
-            test_image = np.expand_dims(x_test_data[i], axis=0).astype(input_details[0]['dtype'])
-            if len(expected_shape) == 4 and expected_shape[3] == 1: # e.g. [1, 28, 28, 1]
-                 test_image = np.expand_dims(test_image, axis=-1)
-            elif len(expected_shape) == 2 and expected_shape[0] == 1: # e.g. [1, 784]
-                test_image = test_image.reshape(1, -1)
-
-
-            tflite_interpreter.set_tensor(input_details[0]['index'], test_image)
-            tflite_interpreter.invoke()
-            output_data = tflite_interpreter.get_tensor(output_details[0]['index'])
-            if np.argmax(output_data) == y_test_data[i]:
-                num_correct += 1
-        accuracy = num_correct / num_total
-        # TFLite interpreter doesn't directly give loss in this evaluation setup
-        print(f"Test Accuracy: {accuracy:.4f}")
-        return 0.0, accuracy # Loss is not easily calculated here
-    else:
-        loss, accuracy = model.evaluate(x_test_data, y_test_data, verbose=0)
-        print(f"Test Loss: {loss:.4f} | Test Accuracy: {accuracy:.4f}")
-        return loss, accuracy'''
 
 def print_weight_statistics(model, name):
     print(f"\nWeight Statistics for {name}:")
@@ -502,7 +464,7 @@ model_baseline.fit(x_train, y_train, epochs=config["epochs"], batch_size=config[
 loss, acc = evaluate_model(model_baseline, "Baseline Float32", x_test, y_test)
 results["Baseline_Float32"] = {"loss": loss, "accuracy": acc}
 print_weight_statistics(model_baseline, "Baseline Float32")
-plot_weight_hist(model_baseline, "Baseline Float32 Weights")
+plot_weight_hist(model_baseline, "Baseline Float32 Weights", bins = 500)
 
 
 # scaling factor의 최적값을 구하는 로직
@@ -597,7 +559,7 @@ try:
     interpreter_ptq.allocate_tensors()
     loss_ptq_fw, acc_ptq_fw = evaluate_model(None, "Framework PTQ (TFLite int8)", x_test, y_test, is_tflite=True, tflite_interpreter=interpreter_ptq)
     results["Framework_PTQ_int8"] = {"loss": loss_ptq_fw, "accuracy": acc_ptq_fw}
-    plot_weight_hist(None, "Framework PTQ (TFLite int8) Weights", is_tflite=True, tflite_interpreter=interpreter_ptq)
+    plot_weight_hist(None, "Framework PTQ (TFLite int8) Weights", is_tflite=True, tflite_interpreter=interpreter_ptq)   
     os.remove(tflite_model_ptq_path) # Clean up temp file
 except Exception as e:
     print(f"Framework PTQ (TFLite int8) failed: {e}")
@@ -632,7 +594,7 @@ try:
     interpreter_qat_tflite.allocate_tensors()
     loss_qat_tfl, acc_qat_tfl = evaluate_model(None, "Framework QAT (TFLite from TF MOT)", x_test, y_test, is_tflite=True, tflite_interpreter=interpreter_qat_tflite)
     results["Framework_QAT_TFLite"] = {"loss": loss_qat_tfl, "accuracy": acc_qat_tfl}
-    plot_weight_hist(None, "Framework QAT (TFLite from TF MOT) Weights", is_tflite=True, tflite_interpreter=interpreter_qat_tflite)
+    plot_weight_hist(None, "Framework QAT (TFLite from TF MOT) Weights", is_tflite=True, tflite_interpreter=interpreter_qat_tflite, bins = 500)
     os.remove(tflite_model_qat_path) # Clean up temp file
 except Exception as e:
     print(f"Framework QAT (TFLite conversion/evaluation) failed: {e}")

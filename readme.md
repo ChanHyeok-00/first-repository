@@ -69,6 +69,8 @@
 	정확도는 대략 95%
 	noise_scaling_factor가 커져도(50정도) 90%대의 정확도 유지
 
+ ## step size(bit)에 대한 accuracy, loss 그래프
+int8, int6, int4, int2, int1을 각각 num_of_G = 100, 32, 8, 2, 1과 mode: 3로 구현 (step size = 201, 65, 17, 5, 3)
 ![all_test_accuracies_vs_num_g_qats](https://github.com/user-attachments/assets/dcbbf1cb-b9bb-4ba2-8a05-9b851c9898c3) /n
 ![all_test_losses_vs_num_g_qats](https://github.com/user-attachments/assets/93ae5181-8f0d-47e4-b97f-053704ba4b3a) /n
 ![noise30_all_accuracies_vs_num_g](https://github.com/user-attachments/assets/c72156d2-e33c-464b-b590-0c07afad4b51) /n

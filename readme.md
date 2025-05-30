@@ -1,5 +1,3 @@
-![image](https://github.com/user-attachments/assets/a3c31f62-687e-4a08-8862-bd882501bcd3)# Quantizaiton with conductance of Neuromorphic Device
-
 ## parameters
 
 ### 1.mode: 전도도를 다루는 변수

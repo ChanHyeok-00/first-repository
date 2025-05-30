@@ -69,3 +69,5 @@
 	정확도는 대략 95%
 	noise_scaling_factor가 커져도(50정도) 90%대의 정확도 유지
 
+![all_test_accuracies_vs_num_g_qats](https://github.com/user-attachments/assets/dcbbf1cb-b9bb-4ba2-8a05-9b851c9898c3)
+

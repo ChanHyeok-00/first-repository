@@ -69,8 +69,8 @@
 
  ## step size(bit)에 대한 accuracy, loss 그래프
 int8, int6, int4, int2, int1을 각각 num_of_G = 100, 32, 8, 2, 1과 mode: 3로 구현 (step size = 201, 65, 17, 5, 3)
-![image](https://github.com/user-attachments/assets/8bfbe312-011b-49f6-9fa5-637cd856815c)
-![image](https://github.com/user-attachments/assets/e6f49bb2-de2e-4e37-b9bc-c3541080488c)
+![all_test_accuracies_vs_num_g_qats](https://github.com/user-attachments/assets/f05cbe87-5aca-470e-8225-602e9e42f545)
+![all_test_losses_vs_num_g_qats](https://github.com/user-attachments/assets/30dc9488-c6bc-4961-9b73-638c4389f03f)
 ![noise30_all_accuracies_vs_num_g](https://github.com/user-attachments/assets/c72156d2-e33c-464b-b590-0c07afad4b51)
 ![noise40_all_accuracies_vs_num_g](https://github.com/user-attachments/assets/adfeb68b-8e6c-4ca5-997d-2af0014f39fc)
 ![image](https://github.com/user-attachments/assets/6b9e98bc-526a-4950-94c1-c0fc35a94aba)

@@ -1,4 +1,4 @@
-# Quantizaiton with conductance of Neuromorphic Device
+![image](https://github.com/user-attachments/assets/a3c31f62-687e-4a08-8862-bd882501bcd3)# Quantizaiton with conductance of Neuromorphic Device
 
 ## parameters
 
@@ -71,8 +71,10 @@
 
  ## step size(bit)에 대한 accuracy, loss 그래프
 int8, int6, int4, int2, int1을 각각 num_of_G = 100, 32, 8, 2, 1과 mode: 3로 구현 (step size = 201, 65, 17, 5, 3)
-![all_test_accuracies_vs_num_g_qats](https://github.com/user-attachments/assets/dcbbf1cb-b9bb-4ba2-8a05-9b851c9898c3) /n
-![all_test_losses_vs_num_g_qats](https://github.com/user-attachments/assets/93ae5181-8f0d-47e4-b97f-053704ba4b3a) /n
-![noise30_all_accuracies_vs_num_g](https://github.com/user-attachments/assets/c72156d2-e33c-464b-b590-0c07afad4b51) /n
+![image](https://github.com/user-attachments/assets/8bfbe312-011b-49f6-9fa5-637cd856815c)
+![image](https://github.com/user-attachments/assets/e6f49bb2-de2e-4e37-b9bc-c3541080488c)
+![noise30_all_accuracies_vs_num_g](https://github.com/user-attachments/assets/c72156d2-e33c-464b-b590-0c07afad4b51)
 ![noise40_all_accuracies_vs_num_g](https://github.com/user-attachments/assets/adfeb68b-8e6c-4ca5-997d-2af0014f39fc)
+![image](https://github.com/user-attachments/assets/6b9e98bc-526a-4950-94c1-c0fc35a94aba)
+![image](https://github.com/user-attachments/assets/151e374c-9241-4e29-a2c6-fcdced2a0ed9)
 
